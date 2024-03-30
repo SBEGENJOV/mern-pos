@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Butterfly+Kids&family=Dosis:wght@200..800&display=swap");
 body {
   margin: 0;
+  font-family: "Dosis", sans-serif;
+  font-optical-sizing: auto;
 }
