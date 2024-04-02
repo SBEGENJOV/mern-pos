@@ -7,4 +7,9 @@ body {
   margin: 0;
   font-family: "Dosis", sans-serif;
   font-optical-sizing: auto;
+  overflow: hidden;
+}
+
+.categories::-webkit-scrollbar {
+  display: none;
 }
