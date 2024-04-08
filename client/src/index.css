@@ -7,9 +7,13 @@ body {
   margin: 0;
   font-family: "Dosis", sans-serif;
   font-optical-sizing: auto;
-  overflow: hidden;
 }
 
-.categories::-webkit-scrollbar {
-  display: none;
+@media (min-width: 768px) {
+  body {
+    overflow: hidden;
+  }
+  .categories::-webkit-scrollbar {
+    display: none;
+  }
 }
