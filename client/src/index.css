@@ -2,17 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Butterfly+Kids&family=Dosis:wght@200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
+
 body {
   margin: 0;
-  font-family: "Dosis", sans-serif;
-  font-optical-sizing: auto;
+  font-family: "Electrolize", sans-serif;
+  @apply bg-gray-50;
+}
+
+.ant-btn-primary {
+  background-color: #1677ff;
 }
 
 @media (min-width: 768px) {
   body {
     overflow: hidden;
   }
+
   .categories::-webkit-scrollbar {
     display: none;
   }
