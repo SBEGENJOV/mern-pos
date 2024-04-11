@@ -7,6 +7,7 @@ const port = 5000;
 dotenv.config();
 
 const categoryRouter = require("./routes/categories.js");
+const productRouter = require("./routes/product.js");
 
 const connect = async () => {
   try {
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/category", categoryRouter);
+app.use("/api/product", productRouter);
 
 app.listen(port, () => {
   connect();
