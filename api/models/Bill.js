@@ -12,5 +12,5 @@ const BillSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const Bill = mongoose.model("categories", BillSchema);
+const Bill = mongoose.model("bills", BillSchema);
 module.exports = Bill;
