@@ -10,6 +10,8 @@ const categoryRouter = require("./routes/categories.js");
 const productRouter = require("./routes/product.js");
 const billRoute = require("./routes/bills.js");
 const userRoute = require("./routes/auth.js");
+const userRouter = require("./routes/users.js");
+
 
 const connect = async () => {
   try {
@@ -27,6 +29,7 @@ app.use("/api/category", categoryRouter);
 app.use("/api/product", productRouter);
 app.use("/api/bill", billRoute);
 app.use("/api/auth", userRoute);
+app.use("/api/user", userRouter);
 
 app.listen(port, () => {
   connect();
