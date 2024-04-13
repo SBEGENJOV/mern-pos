@@ -3,7 +3,7 @@ import "./style.css";
 import { Button, Form, Input, message, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
-const Categosires = () => {
+const Categosires = ({ categories, setCategories }) => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const [form] = Form.useForm();
@@ -17,6 +17,7 @@ const Categosires = () => {
       });
       message.success("Kategori başarıyla eklendi.");
       form.resetFields();
+      setCategories([...categories, values]);
     } catch (error) {
       console.log(error);
     }
@@ -24,9 +25,11 @@ const Categosires = () => {
 
   return (
     <ul className="flex gap-4 md:flex-col  text-lg ">
-      <li className="category-item">
-        <span className="bold">Tümü</span>
-      </li>
+      {categories.map((item) => (
+        <li className="category-item" key={item._id}>
+          <span>{item.title}</span>
+        </li>
+      ))}
       <li className="category-item !bg-purple-800 hover:opacity-90">
         <PlusOutlined
           className="md:text-2xl"
