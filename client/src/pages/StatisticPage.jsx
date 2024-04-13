@@ -1,34 +1,19 @@
 import { useEffect, useState } from "react";
 import { Area, Pie } from "@ant-design/plots";
-import { Spin } from "antd";
-import StatisticCard from "../component/statistics/StatisticCard.jsx";
-import Header from "../component/header/Header.jsx";
+import { Header } from "antd/es/layout/layout.js";
+import StatisticCard from "../component/statistics/StatisticCard";
 
 const StatisticPage = () => {
-  const [data, setData] = useState();
-  const [products, setProducts] = useState([]);
-  const user = JSON.parse(localStorage.getItem("posUser"));
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     asyncFetch();
   }, []);
 
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const res = await fetch(process.env.REACT_APP_SERVER_URL + "/api/products/get-all");
-        const data = await res.json();
-        setProducts(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getProducts();
-  }, []);
-
   const asyncFetch = () => {
-    fetch(process.env.REACT_APP_SERVER_URL + "/api/bills/get-all")
+    fetch(
+      "https://gw.alipayobjects.com/os/bmw-prod/360c3eae-0c73-46f0-a982-4746a6095010.json"
+    )
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => {
@@ -36,10 +21,37 @@ const StatisticPage = () => {
       });
   };
 
+  const data2 = [
+    {
+      type: '分类一',
+      value: 27,
+    },
+    {
+      type: '分类二',
+      value: 25,
+    },
+    {
+      type: '分类三',
+      value: 18,
+    },
+    {
+      type: '分类四',
+      value: 15,
+    },
+    {
+      type: '分类五',
+      value: 10,
+    },
+    {
+      type: '其他',
+      value: 5,
+    },
+  ];
+
   const config = {
     data,
-    xField: "customerName",
-    yField: "subTotal",
+    xField: "timePeriod",
+    yField: "value",
     xAxis: {
       range: [0, 1],
     },
@@ -47,9 +59,9 @@ const StatisticPage = () => {
 
   const config2 = {
     appendPadding: 10,
-    data,
-    angleField: "subTotal",
-    colorField: "customerName",
+    data: data2,
+    angleField: "value",
+    colorField: "type",
     radius: 1,
     innerRadius: 0.6,
     label: {
@@ -77,68 +89,53 @@ const StatisticPage = () => {
           overflow: "hidden",
           textOverflow: "ellipsis",
         },
-        content: "Toplam\nDeğer",
+        content: "AntV\nG2Plot",
       },
     },
-  };
-
-  const totalAmount = () => {
-    const amount = data.reduce((total, item) => item.totalAmount + total, 0);
-    return `${amount.toFixed(2)}₺`;
   };
 
   return (
     <>
       <Header />
-      <h1 className="text-4xl font-bold text-center mb-4">İstatistiklerim</h1>
-      {data ? (
-        <div className="px-6 md:pb-0 pb-20">
-          <div className="statistic-section">
-            <h2 className="text-lg">
-              Hoş geldin{" "}
-              <span className="text-green-700 font-bold text-xl">
-                {user.username}
-              </span>
-              .
-            </h2>
-            <div className="statistic-cards grid xl:grid-cols-4 md:grid-cols-2 my-10 md:gap-10 gap-4">
-              <StatisticCard
-                title={"Toplam Müşteri"}
-                amount={data?.length}
-                img={"images/user.png"}
-              />
-              <StatisticCard
-                title={"Toplam Kazanç"}
-                amount={totalAmount()}
-                img={"images/money.png"}
-              />
-              <StatisticCard
-                title={"Toplam Satış"}
-                amount={data?.length}
-                img={"images/sale.png"}
-              />
-              <StatisticCard
-                title={"Toplam Ürün"}
-                amount={products?.length}
-                img={"images/product.png"}
-              />
+      <div className="px-6 md:pb-0 pb-20">
+        <h1 className="text-4xl font-bold text-center mb-4">İstatistiklerim</h1>
+        <div className="statistic-section">
+          <h2 className="text-lg">
+            Hoş geldin{" "}
+            <span className="text-green-700 font-bold text-xl">admin</span>.
+          </h2>
+          <div className="statistic-cards grid xl:grid-cols-4 md:grid-cols-2 my-10 md:gap-10 gap-4">
+            <StatisticCard
+              title={"Toplam Müşteri"}
+              amount={"10"}
+              img={"images/user.png"}
+            />
+            <StatisticCard
+              title={"Toplam Kazanç"}
+              amount={"660.96 ₺"}
+              img={"images/money.png"}
+            />
+            <StatisticCard
+              title={"Toplam Satış"}
+              amount={"6"}
+              img={"images/sale.png"}
+            />
+            <StatisticCard
+              title={"Toplam Ürün"}
+              amount={"28"}
+              img={"images/product.png"}
+            />
+          </div>
+          <div className="flex justify-between gap-10 lg:flex-row flex-col items-center">
+            <div className="lg:w-1/2 lg:h-full h-72">
+              <Area {...config} />
             </div>
-            <div className="flex justify-between gap-10 lg:flex-row flex-col items-center">
-              <div className="lg:w-1/2 lg:h-80 h8h-80">
-                <Area {...config} />
-              </div>
-              <div className="lg:w-1/2 lg:h-80 h-72">
-                <Pie {...config2} />
-              </div>
+            <div className="lg:w-1/2 lg:h-full h-72">
+              <Pie {...config2} />
             </div>
           </div>
         </div>
-      ) : (
-        <Spin
-          size="large"
-          className="absolute top-1/2 h-screen w-screen flex justify-center"
-        />
-      )}
+      </div>
     </>
   );
 };
