@@ -8,7 +8,7 @@ router.get("/get-product", async (req, res) => {
     const products = await Product.find();
     res.status(200).json(products);
   } catch (error) {
-    console.log(error);
+    res.status(500).json(error);
   }
 });
 
@@ -38,7 +38,7 @@ router.put("/put-product/:productid", async (req, res) => {
 router.delete("/delete-product/:productid", async (req, res) => {
   try {
     const productId = req.params.productid;
-    await Product.findByIdAndDelete( productId );
+    await Product.findByIdAndDelete(productId);
     res.status(200).json("Item deleted successfully.");
   } catch (error) {
     console.log(error);

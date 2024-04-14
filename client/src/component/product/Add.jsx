@@ -72,13 +72,20 @@ const Add = ({
           label="Kategori Seç"
           rules={[{ required: true, message: "Kategori Alanı Boş Geçilemez!" }]}
         >
-          <Select>
-            {categories.map((category) => (
-              <Select.Option value={category._id} key={category._id}>
-                {category.title}
-              </Select.Option>
-            ))}
-          </Select>
+          <Select
+            showSearch
+            placeholder="Search to Select"
+            optionFilterProp="children"
+            filterOption={(input, option) =>
+              (option?.title ?? "").includes(input)
+            }
+            filterSort={(optionA, optionB) =>
+              (optionA?.title ?? "")
+                .toLowerCase()
+                .localeCompare((optionB?.title ?? "").toLowerCase())
+            }
+            options={categories}
+          />
         </Form.Item>
         <Form.Item className="flex justify-end mb-0">
           <Button type="primary" htmlType="submit">
