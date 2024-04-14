@@ -75,11 +75,10 @@ const Edit = () => {
       try {
         fetch(`http://localhost:5000/api/product/delete-product/${id}`, {
           method: "DELETE",
-          body: JSON.stringify({ categoryId: id }),
           headers: { "Content-type": "application/json; charset=UTF-8" },
         });
-        message.success("Kategori başarıyla silindi.");
-        setCategories(categories.filter((item) => item._id !== id));
+        message.success("Ürün başarıyla silindi.");
+        setProducts(products.filter((item) => item._id !== id));
       } catch (error) {
         message.error("Bir şeyler yanlış gitti.");
         console.log(error);
