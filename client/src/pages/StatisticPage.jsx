@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Area, Pie } from "@ant-design/plots";
-import { Header } from "antd/es/layout/layout.js";
 import StatisticCard from "../component/statistics/StatisticCard";
+import Header from "../component/header/Header";
 
 const StatisticPage = () => {
   const [data, setData] = useState([]);
